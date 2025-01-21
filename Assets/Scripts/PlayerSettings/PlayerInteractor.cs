@@ -1,7 +1,6 @@
 using InteractableItemSettings;
 using PlayerSettings.Abstraction;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 namespace PlayerSettings
 {

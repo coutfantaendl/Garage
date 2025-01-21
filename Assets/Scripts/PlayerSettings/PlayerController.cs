@@ -1,5 +1,3 @@
-using System;
-using InteractableItemSettings;
 using PlayerSettings.Abstraction;
 using UnityEngine;
 using Zenject;

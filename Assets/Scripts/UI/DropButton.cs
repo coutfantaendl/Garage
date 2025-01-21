@@ -1,6 +1,5 @@
 using PlayerSettings;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 using UnityEngine.UI;
 

@@ -1,4 +1,3 @@
-using PlayerSettings;
 using UnityEngine;
 
 namespace InteractableItemSettings
