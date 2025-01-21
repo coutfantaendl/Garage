@@ -1,3 +1,4 @@
+using System;
 using InteractableItemSettings;
 using PlayerSettings.Abstraction;
 using UnityEngine;
@@ -11,19 +12,14 @@ namespace PlayerSettings
         [SerializeField] private float _moveSpeed;
         [SerializeField] private float _lookSensitivity;
         [SerializeField] private Transform _cameraTransform;
-        [SerializeField] private Transform _holdPoint;
-        [SerializeField] private float _throwForce;
 
         private CharacterController _characterController;
         private IPlayerInput _playerInput;
-        private float _pitch;
-        private PlayerInventory _playerInventory;
 
         [Inject]
-        public void Construct(IPlayerInput playerInput, PlayerInventory playerInventory)
+        public void Construct(IPlayerInput playerInput)
         {
             _playerInput = playerInput;
-            _playerInventory = playerInventory;
         }
 
         private void Awake()
@@ -34,11 +30,6 @@ namespace PlayerSettings
         private void Update()
         {
             MoveAndRotate();
-            
-            if (Input.GetMouseButtonDown(0))
-            {
-                TryInteract();
-            }
         }
 
         private void MoveAndRotate()
@@ -60,31 +51,6 @@ namespace PlayerSettings
 
                 _cameraTransform.rotation = Quaternion.Slerp(_cameraTransform.rotation, targetRotation,
                     _lookSensitivity * Time.deltaTime);
-            }
-        }
-        
-        private void TryInteract()
-        {
-            if (_playerInventory.HeldItem is not null) return; 
-
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); 
-            if (Physics.Raycast(ray, out RaycastHit hit, 2f))
-            {
-                InteractableItem interactable = hit.collider.GetComponent<InteractableItem>();
-                
-                if (interactable is not null)
-                {
-                    interactable.PickUp(this);
-                }
-            }
-        }
-        
-        public void ThrowItem()
-        {
-            if (_playerInventory.HeldItem is not null)
-            {
-                _playerInventory.HeldItem.Throw(_holdPoint.forward * _throwForce);
-                _playerInventory.HeldItem = null;
             }
         }
     }

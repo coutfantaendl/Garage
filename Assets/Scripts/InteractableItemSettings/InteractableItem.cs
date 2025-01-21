@@ -6,24 +6,20 @@ namespace InteractableItemSettings
     public class InteractableItem : MonoBehaviour
     {
         private Rigidbody _rigidbody;
-
+        
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
         }
-
-        public void PickUp(PlayerController player)
+        
+        public void PickUp(Transform holdPoint)
         {
-            if (player is null) return;
-
-            transform.SetParent(player.transform.Find("HoldPoint"));
+            transform.SetParent(holdPoint);
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
-
             _rigidbody.isKinematic = true;
-            player.GetComponent<PlayerInventory>().HeldItem = this;
         }
-
+        
         public void Throw(Vector3 force)
         {
             transform.SetParent(null);

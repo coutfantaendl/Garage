@@ -17,10 +17,16 @@ namespace PlayerSettings
         {
             return _playerInput.actions["PlayerMove"].ReadValue<Vector2>();
         }
-
-        public Vector2 GetLookInput()
+        
+        public bool IsInteractPressed()
         {
-            return _playerInput.actions["Look"].ReadValue<Vector2>();
+            return _playerInput.actions["Interact"].WasPressedThisFrame();
         }
+        
+        public bool IsDropPressed()
+        {
+            return _playerInput.actions["Drop"].WasPressedThisFrame();
+        }
+        
     }
 }
